@@ -13,6 +13,12 @@
 # testing
 /coverage
 
+# playwright (session file / Chrome profile contain real login cookies, must never be committed)
+playwright/.auth/
+playwright/.chrome-profile/
+test-results/
+playwright-report/
+
 # next.js
 /.next/
 /out/
@@ -39,3 +45,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/src/generated/prisma
