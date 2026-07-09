@@ -1,4 +1,4 @@
-import { signIn } from "@/../auth";
+import { signIn, signOut } from "@/../auth";
 import { AuthError } from "next-auth";
 import { getTranslations } from "next-intl/server";
 import { redirect, Link } from "@/i18n/navigation";
@@ -82,6 +82,11 @@ export default async function LoginPage({
         <form
           action={async () => {
             "use server";
+            // Clear any stale session first: Auth.js's OAuth callback treats an
+            // existing session cookie as "link this provider to my current user"
+            // rather than a fresh sign-in, which can hijack the login onto the
+            // wrong (stale) account or throw OAuthAccountNotLinked.
+            await signOut({ redirect: false });
             await signIn("google", { redirectTo: `/${locale}/dashboard` });
           }}
         >
