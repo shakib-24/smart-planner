@@ -6,21 +6,11 @@ import {
 } from "@/app/actions/tasks";
 import { getCategories, createCategory, seedDefaultCategories } from "@/app/actions/categories";
 import { getTranslations } from "next-intl/server";
-import { auth, signOut } from "@/../auth";
+import { auth } from "@/../auth";
 import { redirect } from "@/i18n/navigation";
-import { Link } from "@/i18n/navigation";
-import {
-  Trash2,
-  Calendar as CalendarIcon,
-  LayoutDashboard,
-  LogOut,
-  Archive as ArchiveIcon,
-} from "lucide-react";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
+import AppHeader from "@/components/AppHeader";
 import TaskFilters from "@/components/TaskFilters";
-import ThemeToggle from "@/components/theme-toggle";
 import TaskList from "@/components/TaskList";
-import CommandPaletteButton from "@/components/CommandPaletteButton";
 import TagInput from "@/components/TagInput";
 
 export default async function TasksPage({
@@ -61,10 +51,9 @@ export default async function TasksPage({
       filters.view
   );
 
-  const [tasks, t, tHome, userTags] = await Promise.all([
+  const [tasks, t, userTags] = await Promise.all([
     getTasks(filters),
     getTranslations("tasks"),
-    getTranslations("home"),
     getUserTags(),
   ]);
 
@@ -76,56 +65,7 @@ export default async function TasksPage({
 
   return (
     <main className="max-w-2xl mx-auto py-10 px-4">
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-        <h1 className="text-2xl font-bold">{t("title")}</h1>
-        <div className="flex flex-wrap items-center gap-2">
-          <CommandPaletteButton label={t("openCommandPalette")} />
-          <Link
-            href="/dashboard"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border hover:bg-accent"
-            aria-label={t("dashboard")}
-          >
-            <LayoutDashboard className="h-4 w-4" />
-          </Link>
-          <Link
-            href="/calendar"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border hover:bg-accent"
-            aria-label={t("calendar")}
-          >
-            <CalendarIcon className="h-4 w-4" />
-          </Link>
-          <Link
-            href="/archive"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border hover:bg-accent"
-            aria-label={t("archive")}
-          >
-            <ArchiveIcon className="h-4 w-4" />
-          </Link>
-          <Link
-            href="/trash"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border hover:bg-accent"
-            aria-label={t("trash")}
-          >
-            <Trash2 className="h-4 w-4" />
-          </Link>
-          <ThemeToggle />
-          <LanguageSwitcher />
-          <form
-            action={async () => {
-              "use server";
-              await signOut({ redirectTo: `/${locale}/login` });
-            }}
-          >
-            <button
-              type="submit"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-md border hover:bg-accent"
-              aria-label={tHome("signOut")}
-            >
-              <LogOut className="h-4 w-4" />
-            </button>
-          </form>
-        </div>
-      </div>
+      <AppHeader locale={locale} title={t("title")} />
 
       {/* Add Task Form */}
       <form action={createTask} className="mb-8 space-y-3 border p-4 rounded-lg">

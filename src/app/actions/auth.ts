@@ -2,6 +2,7 @@
 
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { signOut } from "@/../auth";
 
 const DEFAULT_CATEGORIES = [
   { name: "Development", color: "#3b82f6" },
@@ -72,4 +73,8 @@ export async function registerUser(formData: FormData): Promise<RegisterResult> 
   await seedDefaultCategoriesForUser(newUser.id);
 
   return { success: true };
+}
+
+export async function signOutAction(locale: string) {
+  await signOut({ redirectTo: `/${locale}/login` });
 }
