@@ -149,3 +149,17 @@
     color: var(--foreground, #f5f5f5);
   }
 }
+
+/* FullCalendar — let the toolbar wrap onto multiple lines on narrow
+   screens instead of overflowing horizontally (its default toolbar is a
+   single non-wrapping flex row). */
+.fc .fc-toolbar {
+  flex-wrap: wrap;
+  row-gap: 0.5rem;
+}
+
+.fc .fc-toolbar-chunk {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

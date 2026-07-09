@@ -76,9 +76,9 @@ export default async function TasksPage({
 
   return (
     <main className="max-w-2xl mx-auto py-10 px-4">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <h1 className="text-2xl font-bold">{t("title")}</h1>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <CommandPaletteButton label={t("openCommandPalette")} />
           <Link
             href="/dashboard"
@@ -151,7 +151,7 @@ export default async function TasksPage({
           placeholder={t("referenceUrlPlaceholder")}
           className="w-full border rounded-md px-3 py-2"
         />
-        <div className="flex gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <select name="priority" className="border rounded-md px-3 py-2">
             <option value="NONE">{t("priorityNone")}</option>
             <option value="LOW">{t("priorityLow")}</option>
@@ -184,13 +184,13 @@ export default async function TasksPage({
       {/* Add Custom Category */}
       <form
         action={createCategory}
-        className="mb-8 flex items-center gap-3 border p-4 rounded-lg"
+        className="mb-8 flex flex-wrap items-center gap-3 border p-4 rounded-lg"
       >
         <input
           name="name"
           placeholder={t("categoryNamePlaceholder")}
           required
-          className="flex-1 border rounded-md px-3 py-2"
+          className="min-w-0 flex-1 border rounded-md px-3 py-2"
         />
         <input
           type="color"
