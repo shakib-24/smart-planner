@@ -6,7 +6,22 @@
     "signOut": "সাইন আউট"
   },
   "login": {
-    "signInWithGoogle": "Google দিয়ে সাইন ইন করো"
+    "signInWithGoogle": "Google দিয়ে সাইন ইন করো",
+    "or": "অথবা",
+    "emailLabel": "ইমেইল",
+    "passwordLabel": "পাসওয়ার্ড",
+    "confirmPasswordLabel": "পাসওয়ার্ড নিশ্চিত করো",
+    "nameLabel": "নাম",
+    "loginButton": "সাইন ইন করো",
+    "registerButton": "অ্যাকাউন্ট তৈরি করো",
+    "registerLink": "রেজিস্টার করো",
+    "alreadyHaveAccount": "আগে থেকেই অ্যাকাউন্ট আছে?",
+    "dontHaveAccount": "অ্যাকাউন্ট নেই?",
+    "loginError": "ইমেইল অথবা পাসওয়ার্ড ভুল।",
+    "passwordTooShort": "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে।",
+    "passwordMismatch": "পাসওয়ার্ড মিলছে না।",
+    "emailAlreadyExists": "এই ইমেইল দিয়ে আগে থেকেই একটি অ্যাকাউন্ট আছে; Google দিয়ে লগইন করো অথবা অন্য ইমেইল ব্যবহার করো।",
+    "allFieldsRequired": "সব ফিল্ড পূরণ করো।"
   },
   "tasks": {
     "title": "আমার Tasks",

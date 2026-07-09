@@ -6,7 +6,22 @@
     "signOut": "Sign Out"
   },
   "login": {
-    "signInWithGoogle": "Sign in with Google"
+    "signInWithGoogle": "Sign in with Google",
+    "or": "or",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "confirmPasswordLabel": "Confirm Password",
+    "nameLabel": "Name",
+    "loginButton": "Sign in",
+    "registerButton": "Create account",
+    "registerLink": "Register",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "loginError": "Invalid email or password.",
+    "passwordTooShort": "Password must be at least 8 characters long.",
+    "passwordMismatch": "Passwords do not match.",
+    "emailAlreadyExists": "An account with this email already exists; try logging in with Google or use a different email.",
+    "allFieldsRequired": "Please fill in all fields."
   },
   "tasks": {
     "title": "My Tasks",

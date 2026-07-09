@@ -6,7 +6,22 @@
     "signOut": "サインアウト"
   },
   "login": {
-    "signInWithGoogle": "Googleでサインイン"
+    "signInWithGoogle": "Googleでサインイン",
+    "or": "または",
+    "emailLabel": "メールアドレス",
+    "passwordLabel": "パスワード",
+    "confirmPasswordLabel": "パスワード（確認）",
+    "nameLabel": "名前",
+    "loginButton": "サインイン",
+    "registerButton": "アカウントを作成",
+    "registerLink": "登録する",
+    "alreadyHaveAccount": "すでにアカウントをお持ちですか?",
+    "dontHaveAccount": "アカウントをお持ちでない方",
+    "loginError": "メールアドレスまたはパスワードが正しくありません。",
+    "passwordTooShort": "パスワードは8文字以上で入力してください。",
+    "passwordMismatch": "パスワードが一致しません。",
+    "emailAlreadyExists": "このメールアドレスのアカウントはすでに存在します。Googleでログインするか、別のメールアドレスを使用してください。",
+    "allFieldsRequired": "すべての項目を入力してください。"
   },
   "tasks": {
     "title": "マイタスク",

@@ -1,36 +1,69 @@
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import Google from "next-auth/providers/google";
+import Credentials from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
-
-const DEFAULT_CATEGORIES = [
-  { name: "Development", color: "#3b82f6" },
-  { name: "Bug Fix", color: "#ef4444" },
-  { name: "Learning", color: "#8b5cf6" },
-  { name: "Meeting", color: "#f59e0b" },
-  { name: "Documentation", color: "#10b981" },
-  { name: "Testing", color: "#ec4899" },
-  { name: "Deployment", color: "#6366f1" },
-  { name: "Personal", color: "#64748b" },
-];
+import { seedDefaultCategoriesForUser } from "@/app/actions/auth";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
-  providers: [Google],
+  session: { strategy: "jwt" },
+  providers: [
+    Google,
+    Credentials({
+      credentials: {
+        email: {},
+        password: {},
+      },
+      async authorize(credentials) {
+        const email = credentials?.email;
+        const password = credentials?.password;
+
+        if (typeof email !== "string" || typeof password !== "string" || !email || !password) {
+          return null;
+        }
+
+        const user = await prisma.user.findUnique({ where: { email } });
+        if (!user || !user.password) {
+          return null;
+        }
+
+        const passwordsMatch = await bcrypt.compare(password, user.password);
+        if (!passwordsMatch) {
+          return null;
+        }
+
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          image: user.image,
+        };
+      },
+    }),
+  ],
   pages: {
     signIn: "/login",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token.id && session.user) {
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
   },
   events: {
     async createUser({ user }) {
       if (!user.id) return;
-      await prisma.category.createMany({
-        data: DEFAULT_CATEGORIES.map((cat, i) => ({
-          userId: user.id!,
-          name: cat.name,
-          color: cat.color,
-          position: i,
-        })),
-      });
+      await seedDefaultCategoriesForUser(user.id);
     },
   },
 });
