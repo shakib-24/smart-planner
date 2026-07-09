@@ -55,10 +55,19 @@ export default function DashboardView({ stats }: { stats: DashboardStats }) {
   const locale = useLocale();
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
     setMounted(true);
+    setNow(new Date());
+    const interval = setInterval(() => setNow(new Date()), 60000);
+    return () => clearInterval(interval);
   }, []);
+
+  const formattedNow =
+    mounted && now
+      ? new Intl.DateTimeFormat(locale, { dateStyle: "full", timeStyle: "short" }).format(now)
+      : null;
 
   // The app's --chart-* CSS vars are identical across light/dark (grayscale
   // placeholders never customized per-theme), so a var()-only fill would be
@@ -75,6 +84,8 @@ export default function DashboardView({ stats }: { stats: DashboardStats }) {
 
   return (
     <div className="space-y-6">
+      <p className="text-sm text-muted-foreground">{formattedNow ?? " "}</p>
+
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         <StatCard
           label={t("todayTasks")}
