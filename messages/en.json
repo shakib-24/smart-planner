@@ -72,6 +72,7 @@
     "progressLabel": "Progress",
     "noSubtasks": "No sub-tasks yet.",
     "applyTemplate": "Apply Template",
+    "applyTemplateWarning": "This task already has sub-tasks. Applying a template will add more sub-tasks (existing ones won't be removed). Continue?",
     "templateCertificationStudy": "Certification Study",
     "templateFeatureDevelopment": "Feature Development",
     "templateSoftwareProject": "Software Project",

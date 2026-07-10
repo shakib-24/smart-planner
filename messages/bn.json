@@ -72,6 +72,7 @@
     "progressLabel": "Progress",
     "noSubtasks": "এখনো কোনো sub-task নেই।",
     "applyTemplate": "Template Apply করো",
+    "applyTemplateWarning": "এই task এ ইতিমধ্যে sub-task আছে। Template apply করলে আরও নতুন sub-task যোগ হবে (আগেরগুলো মুছে যাবে না)। এগিয়ে যেতে চাও?",
     "templateCertificationStudy": "Certification Study",
     "templateFeatureDevelopment": "Feature Development",
     "templateSoftwareProject": "Software Project",

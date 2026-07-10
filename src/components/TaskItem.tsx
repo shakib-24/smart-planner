@@ -13,6 +13,16 @@ import {
 import EditTaskDialog from "@/components/EditTaskDialog";
 import { calculateProgress } from "@/lib/wbs";
 import { WBS_TEMPLATES } from "@/lib/wbs-templates";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export type Category = { id: string; name: string; color: string };
 
@@ -103,6 +113,7 @@ export default function TaskItem({
   const [expanded, setExpanded] = useState(false);
   const [addingSubtask, setAddingSubtask] = useState(false);
   const [templateMenuOpen, setTemplateMenuOpen] = useState(false);
+  const [confirmTemplateId, setConfirmTemplateId] = useState<string | null>(null);
 
   const progress = calculateProgress(task.children);
 
@@ -114,8 +125,18 @@ export default function TaskItem({
 
   async function handleApplyTemplate(templateId: string) {
     setTemplateMenuOpen(false);
+    setConfirmTemplateId(null);
     await applyWbsTemplate(task.id, templateId, locale);
     setExpanded(true);
+  }
+
+  function handleTemplateSelect(templateId: string) {
+    if (task.children.length > 0) {
+      setTemplateMenuOpen(false);
+      setConfirmTemplateId(templateId);
+    } else {
+      handleApplyTemplate(templateId);
+    }
   }
 
   return (
@@ -250,7 +271,7 @@ export default function TaskItem({
                     <button
                       key={template.id}
                       type="button"
-                      onClick={() => handleApplyTemplate(template.id)}
+                      onClick={() => handleTemplateSelect(template.id)}
                       className="block w-full px-3 py-2 text-left text-xs hover:bg-muted"
                     >
                       {t(template.nameKey)}
@@ -339,6 +360,29 @@ export default function TaskItem({
           ))}
         </div>
       )}
+
+      <Dialog
+        open={confirmTemplateId !== null}
+        onOpenChange={(open) => !open && setConfirmTemplateId(null)}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t("applyTemplate")}</DialogTitle>
+            <DialogDescription>{t("applyTemplateWarning")}</DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose render={<Button type="button" variant="outline" />}>
+              {t("cancel")}
+            </DialogClose>
+            <Button
+              type="button"
+              onClick={() => confirmTemplateId && handleApplyTemplate(confirmTemplateId)}
+            >
+              {t("applyTemplate")}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

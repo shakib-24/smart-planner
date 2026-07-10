@@ -72,6 +72,7 @@
     "progressLabel": "進捗",
     "noSubtasks": "まだサブタスクがありません。",
     "applyTemplate": "テンプレートを適用",
+    "applyTemplateWarning": "このタスクにはすでにサブタスクがあります。テンプレートを適用すると新しいサブタスクが追加されます(既存のものは削除されません)。続行しますか?",
     "templateCertificationStudy": "資格試験の勉強",
     "templateFeatureDevelopment": "機能開発",
     "templateSoftwareProject": "ソフトウェアプロジェクト",
